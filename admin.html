@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý đơn hàng</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Danh sách đơn hàng</h2>
+
+    <div id="orders"></div>
+</div>
+
+<script>
+// --- ADMIN PAGE ---
+
+function loadOrders() {
+    const orders = JSON.parse(localStorage.getItem("orders") || "[]");
+    const ordersDiv = document.getElementById("orders");
+
+    if (orders.length === 0) {
+        ordersDiv.innerHTML = "<p>Chưa có đơn hàng nào.</p>";
+        return;
+    }
+
+    ordersDiv.innerHTML = "";
+
+    orders.forEach((o, index) => {
+        const box = document.createElement("div");
+        box.className = "order-item";
+        box.innerHTML = `
+            <p><b>Đơn #${index + 1}</b></p>
+            <p>🍹 Đồ uống: ${o.drink}</p>
+            <p>👤 Tên: ${o.name}</p>
+            <p>📞 SĐT: ${o.phone}</p>
+            <p>🏠 Địa chỉ: ${o.address}</p>
+            <hr>
+        `;
+        ordersDiv.appendChild(box);
+    });
+}
+
+// Tự load khi mở trang
+loadOrders();
+</script>
+
+</body>
+</html>
